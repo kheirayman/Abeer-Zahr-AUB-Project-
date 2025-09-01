@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Academia Biology Support</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f6f1e7; /* beige */
+      color: #3a4a33; /* dark olive green */
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* LEFT SIDEBAR */
+    aside.sidebar {
+      width: 220px;
+      background: #a2b29f; /* faded sage green */
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 10px;
+      gap: 15px;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    aside.sidebar h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f0e1a1; /* soft yellow */
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1.5px;
+      text-shadow: 1px 1px 1px #7d7745;
+    }
+    aside.sidebar a {
+      color: #f9f5d7; /* pale gold */
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.3s ease, color 0.3s ease;
+      font-weight: 600;
+      box-shadow: inset 0 0 4px #c7ba78;
+    }
+    aside.sidebar a:hover {
+      background: #f0e1a1;
+      color: #2b2f1e;
+      box-shadow: inset 0 0 8px #a49f53;
+    }
+    aside.sidebar a i {
+      font-size: 20px;
+      color: #f9f5d7;
+      flex-shrink: 0;
+      transition: color 0.3s ease;
+    }
+    aside.sidebar a:hover i {
+      color: #2b2f1e;
+    }
+
+    /* MAIN CONTENT AREA */
+    main.content {
+      margin-left: 220px;
+      flex-grow: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER BANNER */
+    header.banner {
+      background: linear-gradient(90deg, #758a24, #f0e1a1);
+      padding: 25px 30px;
+      color: #2b2f1e;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(117, 138, 36, 0.6);
+      user-select: none;
+    }
+    header.banner .main-title {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px #a39b64;
+    }
+
+    /* NAVIGATION UNDER BANNER */
+    nav.topnav {
+      background: #d8cca2; /* soft gold/beige */
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      padding: 12px 0;
+      box-shadow: inset 0 -2px 4px #b4a761;
+      user-select: none;
+    }
+    nav.topnav a {
+      color: #3a4a33;
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    nav.topnav a:hover {
+      background: #758a24;
+      color: #f6f1e7;
+      box-shadow: 0 0 12px #a5a752aa;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 40px 30px;
+      flex-grow: 1;
+    }
+
+    section.welcome h2,
+    section.section-title {
+      color: #5a6b1a; /* medium green */
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 0 #e7dfb8;
+    }
+    section.welcome p {
+      color: #4d533f;
+      font-size: 19px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* LEVELS AND LESSONS GRID */
+    .levels,
+    .lessons {
+      display: flex;
+      justify-content: center;
+      gap: 45px;
+      background: #f0e9d2; /* very light gold/beige */
+      flex-wrap: wrap;
+      padding: 35px 20px;
+      border-radius: 14px;
+      box-shadow: inset 0 0 20px #c3bc86aa;
+    }
+
+    .level,
+    .lesson {
+      background: #758a24cc; /* semi-transparent olive green */
+      width: 115px;
+      padding: 18px 12px;
+      border-radius: 18px;
+      text-align: center;
+      color: #f9f5d7;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 10px #a8a14caa;
+      user-select: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .level i,
+    .lesson i {
+      font-size: 40px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 2px #e7dfb8);
+      transition: filter 0.3s ease;
+    }
+    .level:hover,
+    .lesson:hover {
+      transform: scale(1.15);
+      box-shadow: 0 8px 20px #f7f0a0cc;
+      background: #a8b83d; /* brighter olive */
+      color: #2b2f1e;
+    }
+    .level:hover i,
+    .lesson:hover i {
+      filter: drop-shadow(0 0 4px #f0e1a1);
+      color: #2b2f1e;
+    }
+
+    /* BACK LINK */
+    .back-link {
+      color: #5a6b1a;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 25px;
+      display: inline-block;
+      font-size: 18px;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover {
+      color: #758a24;
+      text-decoration: underline;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #a2b29f;
+      color: #3a4a33;
+      text-align: center;
+      padding: 18px 10px;
+      font-weight: 700;
+      box-shadow: inset 0 1px 4px #758a24cc;
+      user-select: none;
+      margin-top: auto;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 800px) {
+      body {
+        flex-direction: column;
+      }
+      aside.sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 5px;
+        gap: 8px;
+      }
+      aside.sidebar h2 {
+        display: none;
+      }
+      main.content {
+        margin-left: 0;
+        padding: 10px;
+      }
+      .levels,
+      .lessons {
+        gap: 20px;
+      }
+      .level,
+      .lesson {
+        width: 90px;
+        padding: 15px 8px;
+        font-size: 14px;
+      }
+      .level i,
+      .lesson i {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar" aria-label="Sidebar navigation">
+    <h2>Resources</h2>
+    <a href="#" title="Teacher Resources">
+      <i class="fas fa-chalkboard-teacher"></i> Teacher Resources
+    </a>
+    <a href="#" title="Quizzes">
+      <i class="fas fa-question-circle"></i> Quizzes
+    </a>
+    <a href="#" title="Articles to Read">
+      <i class="fas fa-newspaper"></i> Articles to Read
+    </a>
+    <a href="#" title="Useful Websites">
+      <i class="fas fa-globe"></i> Useful Websites
+    </a>
+    <a href="#" title="Sample of Past Papers">
+      <i class="fas fa-file-alt"></i> Sample of Past Papers
+    </a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <!-- HEADER -->
+    <header class="banner">
+      <h1 class="main-title">Academia Biology Teacher Support</h1>
+      <nav class="topnav" aria-label="Primary navigation">
+        <a href="#" onclick="showPage('homePage')">Home</a>
+        <a href="#" onclick="alert('Contacts page not ready')">Contacts</a>
+        <a href="#" onclick="alert('Teachers\' Support page not ready')">Teachers' Support</a>
+        <a href="#" onclick="alert('Our Services page not ready')">Our Services</a>
+        <a href="#" onclick="showPage('secondaryPage')">FAQ</a>
+      </nav>
+      <h1 class="main-title">Academia Biology Teacher Support</h1>
+  <img
+    src="https://drive.google.com/uc?export=view&id=1lsV9UvqNOpCQsy-CFsTP4Lj6lPkwI0KB"
+    alt="School Logo"
+    class="logo"
+  />
+  
+    </header>
+
+    <!-- HOME PAGE -->
+    <section id="homePage">
+      <section class="welcome" aria-label="Welcome section">
+        <h2>Welcome to Our School Portal</h2>
+        <p>Explore the latest updates and access helpful resources.</p>
+      </section>
+
+      <section class="levels" aria-label="Education levels">
+        <div class="level" tabindex="0" role="button" aria-label="Elementary level">
+          <i class="fas fa-child"></i>
+          <p>Elementary</p>
+        </div>
+        <div class="level" tabindex="0" role="button" aria-label="Intermediate level">
+          <i class="fas fa-user-graduate"></i>
+          <p>Intermediate</p>
+        </div>
+        <div
+          class="level"
+          tabindex="0"
+          role="button"
+          aria-label="Secondary level, click to open"
+          onclick="showPage('secondaryPage')"
+          onkeydown="if(event.key==='Enter') showPage('secondaryPage')"
+          title="Click to open Secondary Levels"
+        >
+          <i class="fas fa-chalkboard-teacher"></i>
+          <p>Secondary</p>
+        </div>
+      </section>
+    </section>
+
+    <!-- SECONDARY PAGE -->
+    <section id="secondaryPage" hidden>
+      <div
+        class="back-link"
+        tabindex="0"
+        role="button"
+        aria-label="Back to Home page"
+        onclick="showPage('homePage')"
+        onkeydown="if(event.key==='Enter') showPage('homePage')"
+      >
+        &larr; Back to Home
+      </div>
+      <h2 class="section-title">Biology - Secondary Levels</h2>
+      <section class="levels" aria-label="Secondary biology levels">
+        <div
+          class="level"
+          tabindex="0"
+          role="button"
+          aria-label="Biology Grade 10, click to open lessons"
+          onclick="showPage('grade10Page')"
+          onkeydown="if(event.key==='Enter') showPage('grade10Page')"
+          title="Open Biology Grade 10 Lessons"
+        >
+          <i class="fas fa-dna"></i>
+          <p>Biology Grade 10</p>
+        </div>
+        <div class="level" tabindex="0" role="button" aria-label="Biology Grade 11">
+          <i class="fas fa-microscope"></i>
+          <p>Biology Grade 11</p>
+        </div>
+        <div class="level" tabindex="0" role="button" aria-label="Biology Grade 12">
+          <i class="fas fa-flask"></i>
+          <p>Biology Grade 12</p>
+        </div>
+      </section>
+    </section>
+
+    <!-- GRADE 10 LESSONS PAGE -->
+    <section id="grade10Page" hidden>
+  <div
+    class="back-link"
+    tabindex="0"
+    role="button"
+    aria-label="Back to Secondary Levels"
+    onclick="showPage('secondaryPage')"
+    onkeydown="if(event.key==='Enter') showPage('secondaryPage')"
+  >
+    &larr; Back to Secondary Levels
+  </div>
+  <h2 class="section-title">Biology Grade 10 Lessons</h2>
+  <section class="lessons" aria-label="Biology Grade 10 lessons">
+
+    <a class="lesson" href="https://drive.google.com/file/d/1GDJQ3I7ROmfp8XbXnVbWfmbJsXYR7HCS/view?usp=drive_link" target="_blank" aria-label="Lesson 1">
+      <i class="fas fa-book"></i>
+      <p>Lesson 1</p>
+    </a>
+
+    <a class="lesson" href="https://drive.google.com/file/d/1WhAWWbLlAbEofU5RGkEoVJN844YZZ2Z0/view?usp=drive_link" target="_blank" aria-label="Lesson 2">
+      <i class="fas fa-book"></i>
+      <p>Lesson 2</p>
+    </a>
+
+    <a class="lesson" href="https://drive.google.com/file/d/1JllLdWAvw1Ls05dhcxLDp4qyDKWER0hL/view?usp=drive_link" target="_blank" aria-label="Lesson 3">
+      <i class="fas fa-book"></i>
+      <p>Lesson 3</p>
+    </a>
+
+    <a class="lesson"href="https://drive.google.com/file/d/10SGAlgpUJJCEGfk9t4UTiS9ShWcMxcrv/view?usp=drive_link" target="_blank" aria-label="Lesson 4">
+      <i class="fas fa-book"></i>
+      <p>Lesson 4</p>
+    </a>
+
+    <a class="lesson" href="https://drive.google.com/file/d/1ruR4UZI7PyHIJs2YAV5li_bAYDiHZKhe/view?usp=drive_link" target="_blank" aria-label="Lesson 5">
+         <i class="fas fa-book"></i>
+      <p>Lesson 5</p>
+    </a>
+
+    <a class="lesson" href="https://drive.google.com/file/d/1lhm6vOBHlcPtCdNVwcY_InQn5TiQjdoj/view?usp=drive_link" target="_blank" aria-label="Lesson 6">
+      <i class="fas fa-book"></i>
+      <p>Lesson 6</p>
+    </a>
+
+  </section>
+</section>
+
+    <footer>
+      <p>Designed by Abeer Zahr @ 2025</p>
+    </footer>
+  </main>
+
+  <script>
+    function showPage(pageId) {
+      // List all page section IDs
+      const pages = ["homePage", "secondaryPage", "grade10Page"];
+      pages.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (id === pageId) {
+          el.hidden = false;
+          el.style.display = "block";
+        } else {
+          el.hidden = true;
+          el.style.display = "none";
+        }
+      });
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
